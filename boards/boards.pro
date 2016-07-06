@@ -1,4 +1,4 @@
-update=Monday, 04 July 2016 'pmt' 17:03:30
+update=Tuesday, 05 July 2016 'amt' 11:55:45
 version=1
 last_client=kicad
 [pcbnew]
@@ -23,9 +23,11 @@ ModuleOutlineThickness=0.150000000000
 [cvpcb]
 version=1
 NetIExt=net
+[general]
+version=1
 [eeschema]
 version=1
-LibDir=
+LibDir=../../../../../../Library/Application Support/kicad/library/dave-schematics
 [eeschema/libraries]
 LibName1=power
 LibName2=device
@@ -56,5 +58,19 @@ LibName26=opto
 LibName27=atmel
 LibName28=contrib
 LibName29=valves
-[general]
-version=1
+LibName30=bw-parts
+LibName31=comp-parts
+LibName32=console
+LibName33=cpu-parts
+LibName34=dac
+LibName35=eie-parts
+LibName36=fpga-parts
+LibName37=mcu-parts
+LibName38=minicam-parts
+LibName39=minipc
+LibName40=mxgc
+LibName41=parts
+LibName42=phone
+LibName43=sipm-parts
+LibName44=uballoon
+LibName45=teensy_lc

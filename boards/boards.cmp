@@ -1,0 +1,275 @@
+Cmp-Mod V01 Created by PcbNew   date = Wednesday, 06 July 2016 'amt' 10:46:54
+
+BeginCmp
+TimeStamp = 577CD42C
+Path = /577BABF4
+Reference = ANT1;
+ValeurCmp = ANT;
+IdModule  = Parts:ANT_50ohm;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD432
+Path = /577AA342
+Reference = C1;
+ValeurCmp = 1uF;
+IdModule  = Capacitors_SMD.pretty:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD438
+Path = /577AA373
+Reference = C2;
+ValeurCmp = 1uF;
+IdModule  = Capacitors_SMD.pretty:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD440
+Path = /577BC7D9
+Reference = D1;
+ValeurCmp = LED;
+IdModule  = Parts:CONN_JST;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD446
+Path = /577BC973
+Reference = D2;
+ValeurCmp = LED;
+IdModule  = william-parts:KingbrightKPTL-3216QBC-D-01;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD44C
+Path = /577BC9BA
+Reference = D3;
+ValeurCmp = LED;
+IdModule  = william-parts:KingbrightKPTL-3216QBC-D-01;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD45D
+Path = /577B7BC3
+Reference = J1;
+ValeurCmp = MicroSD;
+IdModule  = Parts:DM3CS-SF;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD471
+Path = /577B9D2E
+Reference = MOD1;
+ValeurCmp = RFM_9xW;
+IdModule  = Parts:RFM9xW;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD479
+Path = /577BF9B4
+Reference = P1;
+ValeurCmp = CONN_01X04;
+IdModule  = william-parts:quadruple_pads;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD47E
+Path = /577C4D83
+Reference = P2;
+ValeurCmp =  ;
+IdModule  = william-parts:single_pad;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD483
+Path = /577C4E41
+Reference = P3;
+ValeurCmp =  ;
+IdModule  = william-parts:single_pad;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD488
+Path = /577C4EF5
+Reference = P4;
+ValeurCmp =  ;
+IdModule  = william-parts:single_pad;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD48D
+Path = /577C4F3C
+Reference = P5;
+ValeurCmp =  ;
+IdModule  = william-parts:single_pad;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD492
+Path = /577C6894
+Reference = P6;
+ValeurCmp =  ;
+IdModule  = william-parts:single_pad;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD497
+Path = /577C6941
+Reference = P7;
+ValeurCmp =  ;
+IdModule  = william-parts:single_pad;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD49C
+Path = /577C6B5C
+Reference = P8;
+ValeurCmp =  ;
+IdModule  = william-parts:single_pad;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4A1
+Path = /577C5D34
+Reference = P9;
+ValeurCmp =  ;
+IdModule  = william-parts:single_pad;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4A6
+Path = /577C5D2E
+Reference = P10;
+ValeurCmp =  ;
+IdModule  = william-parts:single_pad;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4AB
+Path = /577C5D28
+Reference = P11;
+ValeurCmp =  ;
+IdModule  = william-parts:single_pad;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4B0
+Path = /577C5D22
+Reference = P12;
+ValeurCmp =  ;
+IdModule  = william-parts:single_pad;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4B6
+Path = /577C1E84
+Reference = P13;
+ValeurCmp = CONN_01X02;
+IdModule  = william-parts:double_pads;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4BC
+Path = /577BCA3E
+Reference = R1;
+ValeurCmp = 470;
+IdModule  = Resistors_SMD.pretty:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4C2
+Path = /577BCA86
+Reference = R2;
+ValeurCmp = 470;
+IdModule  = Resistors_SMD.pretty:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4C8
+Path = /577BCADB
+Reference = R3;
+ValeurCmp = 470;
+IdModule  = Resistors_SMD.pretty:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4CE
+Path = /577BA0BF
+Reference = R4;
+ValeurCmp = 47k;
+IdModule  = Resistors_SMD.pretty:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4D4
+Path = /577BA0FC
+Reference = R5;
+ValeurCmp = 47k;
+IdModule  = Resistors_SMD.pretty:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4DA
+Path = /577BA135
+Reference = R6;
+ValeurCmp = 47k;
+IdModule  = Resistors_SMD.pretty:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4E0
+Path = /577BA413
+Reference = R7;
+ValeurCmp = 47k;
+IdModule  = Resistors_SMD.pretty:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4E6
+Path = /577BA450
+Reference = R8;
+ValeurCmp = 47k;
+IdModule  = Resistors_SMD.pretty:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4EC
+Path = /577B9A16
+Reference = R9;
+ValeurCmp = 2.2k;
+IdModule  = Resistors_SMD.pretty:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4F2
+Path = /577B9A6D
+Reference = R10;
+ValeurCmp = 2.2k;
+IdModule  = Resistors_SMD.pretty:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD4FB
+Path = /577AA2F4
+Reference = U1;
+ValeurCmp = XC6210;
+IdModule  = TO_SOT_Packages_SMD.pretty:SOT-23-5;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD524
+Path = /577B92B8
+Reference = U2;
+ValeurCmp = Teensy_LC;
+IdModule  = william-parts:Teensy-LC;
+EndCmp
+
+BeginCmp
+TimeStamp = 577CD52C
+Path = /577B79E1
+Reference = U3;
+ValeurCmp = MS5637;
+IdModule  = Parts:MS5637;
+EndCmp
+
+EndListe

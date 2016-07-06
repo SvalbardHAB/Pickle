@@ -9,7 +9,7 @@
     (tracks 139)
     (zones 0)
     (modules 34)
-    (nets 41)
+    (nets 42)
   )
 
   (page A4)
@@ -131,6 +131,7 @@
   (net 38 SDA)
   (net 39 "Net-(U2-Pad26)")
   (net 40 "Net-(U2-Pad30)")
+  (net 41 "Net-(U2-Pad31)")
 
   (net_class Default "This is the default net class."
     (clearance 0.2)
@@ -963,7 +964,7 @@
     )
   )
 
-  (module william-parts:Teensy-LC (layer F.Cu) (tedit 577D022E) (tstamp 577D0870)
+  (module william-parts:Teensy-LC (layer F.Cu) (tedit 577CD10E) (tstamp 577D0870)
     (at 57.15 40.64 270)
     (path /577B92B8)
     (fp_text reference U2 (at 0 0.5 270) (layer F.SilkS)
@@ -1041,6 +1042,8 @@
       (net 1 GND))
     (pad 30 thru_hole circle (at 16.51 5.08 270) (size 1.524 1.524) (drill 0.762) (layers *.Cu *.Mask F.SilkS)
       (net 40 "Net-(U2-Pad30)"))
+    (pad 31 thru_hole circle (at -16.51 -7.62 270) (size 1.524 1.524) (drill 0.762) (layers *.Cu *.Mask F.SilkS)
+      (net 41 "Net-(U2-Pad31)"))
   )
 
   (module Parts:MS5637 (layer F.Cu) (tedit 5693EB4D) (tstamp 577D0881)
