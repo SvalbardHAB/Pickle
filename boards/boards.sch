@@ -512,6 +512,171 @@ F 3 "" H 8050 1300 50  0000 C CNN
 	1    8050 1300
 	1    0    0    -1  
 $EndComp
+$Comp
+L CONN_01X01 P2
+U 1 1 577C4D83
+P 2250 3650
+F 0 "P2" H 2350 3650 50  0000 C CNN
+F 1 " " V 2350 3650 50  0000 C CNN
+F 2 "william-parts:single_pad" H 2250 3650 50  0001 C CNN
+F 3 "" H 2250 3650 50  0000 C CNN
+	1    2250 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X01 P3
+U 1 1 577C4E41
+P 2250 3800
+F 0 "P3" H 2350 3800 50  0000 C CNN
+F 1 " " V 2350 3800 50  0000 C CNN
+F 2 "william-parts:single_pad" H 2250 3800 50  0001 C CNN
+F 3 "" H 2250 3800 50  0000 C CNN
+	1    2250 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X01 P4
+U 1 1 577C4EF5
+P 2250 3950
+F 0 "P4" H 2350 3950 50  0000 C CNN
+F 1 " " V 2350 3950 50  0000 C CNN
+F 2 "william-parts:single_pad" H 2250 3950 50  0001 C CNN
+F 3 "" H 2250 3950 50  0000 C CNN
+	1    2250 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X01 P5
+U 1 1 577C4F3C
+P 2250 4100
+F 0 "P5" H 2350 4100 50  0000 C CNN
+F 1 " " V 2350 4100 50  0000 C CNN
+F 2 "william-parts:single_pad" H 2250 4100 50  0001 C CNN
+F 3 "" H 2250 4100 50  0000 C CNN
+	1    2250 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Teensy_LC U2
+U 1 1 577B92B8
+P 3300 3950
+F 0 "U2" H 2600 5350 60  0000 C CNN
+F 1 "Teensy_LC" H 2550 4800 60  0000 C CNN
+F 2 "william-parts:Teensy-LC" H 2700 5200 60  0001 C CNN
+F 3 "" H 2700 5200 60  0000 C CNN
+	1    3300 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X01 P12
+U 1 1 577C5D22
+P 4150 2250
+F 0 "P12" H 4250 2250 50  0000 C CNN
+F 1 " " V 4250 2250 50  0000 C CNN
+F 2 "william-parts:single_pad" H 4150 2250 50  0001 C CNN
+F 3 "" H 4150 2250 50  0000 C CNN
+	1    4150 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X01 P11
+U 1 1 577C5D28
+P 2800 4350
+F 0 "P11" H 2900 4350 50  0000 C CNN
+F 1 " " V 2900 4350 50  0000 C CNN
+F 2 "william-parts:single_pad" H 2800 4350 50  0001 C CNN
+F 3 "" H 2800 4350 50  0000 C CNN
+	1    2800 4350
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_01X01 P10
+U 1 1 577C5D2E
+P 2800 4250
+F 0 "P10" H 2900 4250 50  0000 C CNN
+F 1 " " V 2900 4250 50  0000 C CNN
+F 2 "william-parts:single_pad" H 2800 4250 50  0001 C CNN
+F 3 "" H 2800 4250 50  0000 C CNN
+	1    2800 4250
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_01X01 P9
+U 1 1 577C5D34
+P 2800 4150
+F 0 "P9" H 2900 4150 50  0000 C CNN
+F 1 " " V 2900 4150 50  0000 C CNN
+F 2 "william-parts:single_pad" H 2800 4150 50  0001 C CNN
+F 3 "" H 2800 4150 50  0000 C CNN
+	1    2800 4150
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_01X01 P6
+U 1 1 577C6894
+P 2800 3300
+F 0 "P6" H 2900 3300 50  0000 C CNN
+F 1 " " V 2900 3300 50  0000 C CNN
+F 2 "william-parts:single_pad" H 2800 3300 50  0001 C CNN
+F 3 "" H 2800 3300 50  0000 C CNN
+	1    2800 3300
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_01X01 P7
+U 1 1 577C6941
+P 2800 3450
+F 0 "P7" H 2900 3450 50  0000 C CNN
+F 1 " " V 2900 3450 50  0000 C CNN
+F 2 "william-parts:single_pad" H 2800 3450 50  0001 C CNN
+F 3 "" H 2800 3450 50  0000 C CNN
+	1    2800 3450
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_01X01 P8
+U 1 1 577C6B5C
+P 2800 3600
+F 0 "P8" H 2900 3600 50  0000 C CNN
+F 1 " " V 2900 3600 50  0000 C CNN
+F 2 "william-parts:single_pad" H 2800 3600 50  0001 C CNN
+F 3 "" H 2800 3600 50  0000 C CNN
+	1    2800 3600
+	-1   0    0    1   
+$EndComp
+$Comp
+L LP38690-RESCUE-boards U1
+U 1 1 5781818D
+P 2650 1000
+F 0 "U1" H 2800 804 50  0000 C CNN
+F 1 "LP38690" H 2650 1200 50  0000 C CNN
+F 2 "TO_SOT_Packages_SMD.pretty:TO-252-3Lead" H 2650 1000 50  0001 C CNN
+F 3 "" H 2650 1000 50  0000 C CNN
+	1    2650 1000
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C3
+U 1 1 5784C6D2
+P 4150 1150
+F 0 "C3" H 4175 1250 50  0000 L CNN
+F 1 "4.7uF" H 4175 1050 50  0000 L CNN
+F 2 "Capacitors_SMD.pretty:C_0805_HandSoldering" H 4188 1000 50  0001 C CNN
+F 3 "" H 4150 1150 50  0000 C CNN
+	1    4150 1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C5
+U 1 1 5784C9DF
+P 8350 3150
+F 0 "C5" H 8375 3250 50  0000 L CNN
+F 1 "4.7uF" V 8500 3100 50  0000 L CNN
+F 2 "Capacitors_SMD.pretty:C_0805_HandSoldering" H 8388 3000 50  0001 C CNN
+F 3 "" H 8350 3150 50  0000 C CNN
+	1    8350 3150
+	0    1    1    0   
+$EndComp
 Wire Wire Line
 	850  900  850  1100
 Wire Wire Line
@@ -765,50 +930,6 @@ Connection ~ 7600 1250
 Wire Wire Line
 	7850 1350 7400 1350
 Connection ~ 7400 1350
-$Comp
-L CONN_01X01 P2
-U 1 1 577C4D83
-P 2250 3650
-F 0 "P2" H 2350 3650 50  0000 C CNN
-F 1 " " V 2350 3650 50  0000 C CNN
-F 2 "william-parts:single_pad" H 2250 3650 50  0001 C CNN
-F 3 "" H 2250 3650 50  0000 C CNN
-	1    2250 3650
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_01X01 P3
-U 1 1 577C4E41
-P 2250 3800
-F 0 "P3" H 2350 3800 50  0000 C CNN
-F 1 " " V 2350 3800 50  0000 C CNN
-F 2 "william-parts:single_pad" H 2250 3800 50  0001 C CNN
-F 3 "" H 2250 3800 50  0000 C CNN
-	1    2250 3800
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_01X01 P4
-U 1 1 577C4EF5
-P 2250 3950
-F 0 "P4" H 2350 3950 50  0000 C CNN
-F 1 " " V 2350 3950 50  0000 C CNN
-F 2 "william-parts:single_pad" H 2250 3950 50  0001 C CNN
-F 3 "" H 2250 3950 50  0000 C CNN
-	1    2250 3950
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_01X01 P5
-U 1 1 577C4F3C
-P 2250 4100
-F 0 "P5" H 2350 4100 50  0000 C CNN
-F 1 " " V 2350 4100 50  0000 C CNN
-F 2 "william-parts:single_pad" H 2250 4100 50  0001 C CNN
-F 3 "" H 2250 4100 50  0000 C CNN
-	1    2250 4100
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	1350 3650 2050 3650
 Wire Wire Line
@@ -817,61 +938,6 @@ Wire Wire Line
 	1350 3950 2050 3950
 Wire Wire Line
 	2050 4100 1350 4100
-$Comp
-L Teensy_LC U2
-U 1 1 577B92B8
-P 3300 3950
-F 0 "U2" H 2600 5350 60  0000 C CNN
-F 1 "Teensy_LC" H 2550 4800 60  0000 C CNN
-F 2 "william-parts:Teensy-LC" H 2700 5200 60  0001 C CNN
-F 3 "" H 2700 5200 60  0000 C CNN
-	1    3300 3950
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_01X01 P12
-U 1 1 577C5D22
-P 4150 2250
-F 0 "P12" H 4250 2250 50  0000 C CNN
-F 1 " " V 4250 2250 50  0000 C CNN
-F 2 "william-parts:single_pad" H 4150 2250 50  0001 C CNN
-F 3 "" H 4150 2250 50  0000 C CNN
-	1    4150 2250
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_01X01 P11
-U 1 1 577C5D28
-P 2800 4350
-F 0 "P11" H 2900 4350 50  0000 C CNN
-F 1 " " V 2900 4350 50  0000 C CNN
-F 2 "william-parts:single_pad" H 2800 4350 50  0001 C CNN
-F 3 "" H 2800 4350 50  0000 C CNN
-	1    2800 4350
-	-1   0    0    1   
-$EndComp
-$Comp
-L CONN_01X01 P10
-U 1 1 577C5D2E
-P 2800 4250
-F 0 "P10" H 2900 4250 50  0000 C CNN
-F 1 " " V 2900 4250 50  0000 C CNN
-F 2 "william-parts:single_pad" H 2800 4250 50  0001 C CNN
-F 3 "" H 2800 4250 50  0000 C CNN
-	1    2800 4250
-	-1   0    0    1   
-$EndComp
-$Comp
-L CONN_01X01 P9
-U 1 1 577C5D34
-P 2800 4150
-F 0 "P9" H 2900 4150 50  0000 C CNN
-F 1 " " V 2900 4150 50  0000 C CNN
-F 2 "william-parts:single_pad" H 2800 4150 50  0001 C CNN
-F 3 "" H 2800 4150 50  0000 C CNN
-	1    2800 4150
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	3850 4500 3850 4450
 Wire Wire Line
@@ -890,43 +956,10 @@ Wire Wire Line
 	3450 4100 3850 4100
 Wire Wire Line
 	3850 4100 3850 4050
-$Comp
-L CONN_01X01 P6
-U 1 1 577C6894
-P 2800 3300
-F 0 "P6" H 2900 3300 50  0000 C CNN
-F 1 " " V 2900 3300 50  0000 C CNN
-F 2 "william-parts:single_pad" H 2800 3300 50  0001 C CNN
-F 3 "" H 2800 3300 50  0000 C CNN
-	1    2800 3300
-	-1   0    0    1   
-$EndComp
-$Comp
-L CONN_01X01 P7
-U 1 1 577C6941
-P 2800 3450
-F 0 "P7" H 2900 3450 50  0000 C CNN
-F 1 " " V 2900 3450 50  0000 C CNN
-F 2 "william-parts:single_pad" H 2800 3450 50  0001 C CNN
-F 3 "" H 2800 3450 50  0000 C CNN
-	1    2800 3450
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	3850 3300 3000 3300
 Wire Wire Line
 	3000 3450 3850 3450
-$Comp
-L CONN_01X01 P8
-U 1 1 577C6B5C
-P 2800 3600
-F 0 "P8" H 2900 3600 50  0000 C CNN
-F 1 " " V 2900 3600 50  0000 C CNN
-F 2 "william-parts:single_pad" H 2800 3600 50  0001 C CNN
-F 3 "" H 2800 3600 50  0000 C CNN
-	1    2800 3600
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	3000 3600 3850 3600
 Wire Wire Line
@@ -938,15 +971,41 @@ Wire Wire Line
 Connection ~ 3850 4450
 Wire Wire Line
 	3850 2250 3950 2250
+Wire Wire Line
+	4150 1000 4300 1000
+Connection ~ 4300 1000
+Wire Wire Line
+	4150 1300 4300 1300
+Connection ~ 4300 1300
+Wire Wire Line
+	8500 3150 10000 3150
+Connection ~ 10000 3150
+Wire Wire Line
+	8200 3150 7300 3150
+Wire Wire Line
+	7300 3150 7300 3750
+Connection ~ 7300 3750
 $Comp
-L LP38690-RESCUE-boards U1
-U 1 1 5781818D
-P 2650 1000
-F 0 "U1" H 2800 804 50  0000 C CNN
-F 1 "LP38690" H 2650 1200 50  0000 C CNN
-F 2 "TO_SOT_Packages_SMD.pretty:TO-252-3Lead" H 2650 1000 50  0001 C CNN
-F 3 "" H 2650 1000 50  0000 C CNN
-	1    2650 1000
+L C C4
+U 1 1 5784D19D
+P 5300 4000
+F 0 "C4" H 5325 4100 50  0000 L CNN
+F 1 "22uF" H 5325 3900 50  0000 L CNN
+F 2 "Capacitors_SMD.pretty:C_1206_HandSoldering" H 5338 3850 50  0001 C CNN
+F 3 "" H 5300 4000 50  0000 C CNN
+	1    5300 4000
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	5300 4150 5300 4650
+Wire Wire Line
+	5300 4650 6250 4650
+Connection ~ 6250 4650
+Wire Wire Line
+	5300 3850 5300 3450
+Wire Wire Line
+	5300 3450 6350 3450
+Wire Wire Line
+	6350 3450 6350 3900
+Connection ~ 6350 3900
 $EndSCHEMATC
