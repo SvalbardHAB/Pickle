@@ -677,6 +677,105 @@ F 3 "" H 8350 3150 50  0000 C CNN
 	1    8350 3150
 	0    1    1    0   
 $EndComp
+$Comp
+L C C4
+U 1 1 5784D19D
+P 5300 4000
+F 0 "C4" H 5325 4100 50  0000 L CNN
+F 1 "22uF" H 5325 3900 50  0000 L CNN
+F 2 "Capacitors_SMD.pretty:C_1206_HandSoldering" H 5338 3850 50  0001 C CNN
+F 3 "" H 5300 4000 50  0000 C CNN
+	1    5300 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X01 P18
+U 1 1 5784DBB9
+P 3400 750
+F 0 "P18" H 3400 850 50  0000 C CNN
+F 1 "CONN_01X01" V 3500 750 50  0000 C CNN
+F 2 "william-parts:single_pad" H 3400 750 50  0001 C CNN
+F 3 "" H 3400 750 50  0000 C CNN
+	1    3400 750 
+	0    -1   -1   0   
+$EndComp
+$Comp
+L CONN_01X01 P21
+U 1 1 5784DEC9
+P 3800 650
+F 0 "P21" H 3800 750 50  0000 C CNN
+F 1 "CONN_01X01" V 3900 650 50  0000 C CNN
+F 2 "william-parts:single_pad" H 3800 650 50  0001 C CNN
+F 3 "" H 3800 650 50  0000 C CNN
+	1    3800 650 
+	0    -1   -1   0   
+$EndComp
+$Comp
+L CONN_01X01 P20
+U 1 1 5784E03C
+P 3700 1250
+F 0 "P20" H 3700 1350 50  0000 C CNN
+F 1 "CONN_01X01" V 3800 1250 50  0000 C CNN
+F 2 "william-parts:single_pad" H 3700 1250 50  0001 C CNN
+F 3 "" H 3700 1250 50  0000 C CNN
+	1    3700 1250
+	0    1    1    0   
+$EndComp
+$Comp
+L CONN_01X01 P19
+U 1 1 5784E267
+P 3500 1450
+F 0 "P19" H 3500 1550 50  0000 C CNN
+F 1 "CONN_01X01" V 3600 1450 50  0000 C CNN
+F 2 "william-parts:single_pad" H 3500 1450 50  0001 C CNN
+F 3 "" H 3500 1450 50  0000 C CNN
+	1    3500 1450
+	0    1    1    0   
+$EndComp
+$Comp
+L CONN_01X01 P14
+U 1 1 5784EA65
+P 1750 1650
+F 0 "P14" H 1750 1750 50  0000 C CNN
+F 1 "CONN_01X01" V 1850 1650 50  0000 C CNN
+F 2 "william-parts:single_pad" H 1750 1650 50  0001 C CNN
+F 3 "" H 1750 1650 50  0000 C CNN
+	1    1750 1650
+	0    1    1    0   
+$EndComp
+$Comp
+L CONN_01X01 P15
+U 1 1 5784EB3E
+P 2200 1750
+F 0 "P15" H 2200 1850 50  0000 C CNN
+F 1 "CONN_01X01" V 2300 1750 50  0000 C CNN
+F 2 "william-parts:single_pad" H 2200 1750 50  0001 C CNN
+F 3 "" H 2200 1750 50  0000 C CNN
+	1    2200 1750
+	0    1    1    0   
+$EndComp
+$Comp
+L CONN_01X01 P16
+U 1 1 5784EBB8
+P 2800 1750
+F 0 "P16" H 2800 1850 50  0000 C CNN
+F 1 "CONN_01X01" V 2900 1750 50  0000 C CNN
+F 2 "william-parts:single_pad" H 2800 1750 50  0001 C CNN
+F 3 "" H 2800 1750 50  0000 C CNN
+	1    2800 1750
+	0    1    1    0   
+$EndComp
+$Comp
+L CONN_01X01 P17
+U 1 1 5784EC3E
+P 3200 1650
+F 0 "P17" H 3200 1750 50  0000 C CNN
+F 1 "CONN_01X01" V 3300 1650 50  0000 C CNN
+F 2 "william-parts:single_pad" H 3200 1650 50  0001 C CNN
+F 3 "" H 3200 1650 50  0000 C CNN
+	1    3200 1650
+	0    1    1    0   
+$EndComp
 Wire Wire Line
 	850  900  850  1100
 Wire Wire Line
@@ -985,17 +1084,6 @@ Wire Wire Line
 Wire Wire Line
 	7300 3150 7300 3750
 Connection ~ 7300 3750
-$Comp
-L C C4
-U 1 1 5784D19D
-P 5300 4000
-F 0 "C4" H 5325 4100 50  0000 L CNN
-F 1 "22uF" H 5325 3900 50  0000 L CNN
-F 2 "Capacitors_SMD.pretty:C_1206_HandSoldering" H 5338 3850 50  0001 C CNN
-F 3 "" H 5300 4000 50  0000 C CNN
-	1    5300 4000
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	5300 4150 5300 4650
 Wire Wire Line
@@ -1008,4 +1096,45 @@ Wire Wire Line
 Wire Wire Line
 	6350 3450 6350 3900
 Connection ~ 6350 3900
+Wire Wire Line
+	3800 1050 3800 850 
+Wire Wire Line
+	3600 1050 3800 1050
+Wire Wire Line
+	3600 1250 3600 1050
+Wire Wire Line
+	3450 1250 3600 1250
+Connection ~ 3700 1050
+Wire Wire Line
+	3450 950  3450 1250
+Connection ~ 3400 950 
+Connection ~ 3500 1250
+Wire Wire Line
+	2800 1550 2800 1350
+Connection ~ 2800 1350
+Wire Wire Line
+	3200 1450 2800 1450
+Connection ~ 2800 1450
+Wire Wire Line
+	2200 1550 2450 1550
+Wire Wire Line
+	2450 1550 2450 1350
+Connection ~ 2450 1350
+Wire Wire Line
+	1750 1450 2450 1450
+Connection ~ 2450 1450
+$Comp
+L CONN_01X01 P22
+U 1 1 5784FD74
+P 1800 900
+F 0 "P22" H 1800 1000 50  0000 C CNN
+F 1 "CONN_01X01" V 1900 900 50  0000 C CNN
+F 2 "william-parts:single_pad" H 1800 900 50  0001 C CNN
+F 3 "" H 1800 900 50  0000 C CNN
+	1    1800 900 
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2000 900  2050 900 
+Connection ~ 2050 900 
 $EndSCHEMATC
