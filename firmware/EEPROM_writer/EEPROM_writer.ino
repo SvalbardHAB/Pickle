@@ -1,8 +1,9 @@
 #include <EEPROM.h>
-#define sn 2
-#define promiscuous 255
+#define sn 1
+#define promiscuous 0
 void setup() {
   // put your setup code here, to run once:
+  pinMode(7,OUTPUT);
   digitalWrite(7,LOW);
   delay(50);
   digitalWrite(7,HIGH);

@@ -18,17 +18,19 @@ struct TelemetryData {
   uint64_t time_last_tx = 0;
    byte balloonID = 0;
   const byte n_balloons = 3;
-  const uint64_t timestep = 805000;//one second time period
+  const uint64_t timestep = 805000;
   const uint64_t timepause =500000;//0.5s pause between slots
+  const byte ID_EEPROM_ADDRESS = 0;
+  const byte PROM_EEPROM_ADDRESS = 1;
   const int tx_interval = (n_balloons)*timepause + n_balloons*timestep;  
   boolean promisicuous = false;
   boolean promiscuous_enabled = true;
   TelemetryData(){
-    balloonID = EEPROM.read(0);
+    balloonID = EEPROM.read(ID_EEPROM_ADDRESS);
   }
   void initialise(){
     
-    if(EEPROM.read(1)==0) 
+    if(!EEPROM.read(PROM_EEPROM_ADDRESS)) 
       promiscuous_enabled = false;//disable promiscuous mode if needed
     #if debug_level != 0
     Serial.print("Promiscuous mode? ");
@@ -60,14 +62,15 @@ struct TelemetryData {
         digitalWrite(tx_led,LOW);
         radio.endRX(rx);
         if(rx.data[0]==0 && rx.data[1]==0xFF){//timeslot of a tx has just ended
-          uint64_t time_at_start = micros();
+          time_first_tx = micros() + (balloonID) * timepause + (balloonID -  1) * timestep;
           #if debug_level != 0
           Serial.print("Received a sync packet from TX #0");
           #endif
           //const uint64_t time_until_slot = (balloonID-rx.data[0]) * timepause + (balloonID-rx.data[0] -1) * timestep;
-          const uint64_t time_until_slot = (balloonID) * timepause + (balloonID -1) * timestep;
-          while(micros() - time_at_start < time_until_slot) ;
-          txTime();
+          
+          
+//          while(micros() - time_at_start < time_until_slot) ;
+//          txTime();
           break;
         }
       }
@@ -116,15 +119,12 @@ struct TelemetryData {
         boolean received_something = digitalRead(dio0);
         radio.endRX(rx);
         if(received_something){//timeslot of a tx has just ended
-          uint64_t time_at_start = micros();
           #if debug_level != 0
           Serial.print("Received a sync packet from TX id: ");
           Serial.println(rx.data[0]);
           #endif
-          const uint64_t time_until_slot = (balloonID-rx.data[0]) * timepause + (balloonID-rx.data[0] -1) * timestep;
-          while(micros() - time_at_start < time_until_slot) ;
-          time_first_tx = micros();
-          txTime();
+          
+          time_first_tx = micros() + (balloonID-rx.data[0]) * timepause + (balloonID-rx.data[0] -1) * timestep;
           
         }
 
