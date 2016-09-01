@@ -18,7 +18,6 @@
 #define nss 9
 #define dio0 23
 #define rfm_rst 14
-#define tx_led 7
 #define photodiode_pin A1
 #define debug_level 1 //1 = debug on, 0 = debug off. 2= verbose (if applicable)
 RFMLib radio = RFMLib(nss, dio0, 255, rfm_rst);
@@ -26,9 +25,10 @@ MS5637 barometer;
 TinyGPSPlus gps;
 byte photodiode_event_count = 0;
 uint32_t photodiode_level_sum = 0;
-const uint16_t photodiode_threshold_level = 5000;
+uint16_t photodiode_threshold_level = 0;
+const uint16_t photodiode_threshold_delta = 10;
 boolean photodiode_event_lock = false;
-uint16_t current_photodiode_event_peak = 0;
+uint16_t current_event_peak = 0;
 void RFM_TX_DONE();
 void TX_TIME();
 struct TelemetryData {
@@ -46,8 +46,9 @@ struct TelemetryData {
   boolean promiscuous_enabled = true;
   boolean ublox_gps = false;
   TelemetryData(){
-    balloonID = EEPROM.read(ID_EEPROM_ADDRESS);
-    if(balloonID == 0)
+    balloonID = EEPROM.read(ID_EEPROM_ADDRESS); 
+    
+    if(balloonID == 0 || balloonID==1)
       ublox_gps = true;
   }
   void initialise(){
@@ -61,8 +62,10 @@ struct TelemetryData {
     
     Serial.println(tx_interval,DEC);
     #endif
+    //FORCE PROMISCUITY ================= REMOVE BEFORE FLIGHT
+    //promiscuous_enabled = true;
     if(promiscuous_enabled)
-      initial_sync();
+      initial_sync(); 
     else recovery_sync();
     }
   
@@ -78,9 +81,7 @@ struct TelemetryData {
       while(true){
         RFMLib::Packet rx;
         radio.beginRX();
-        digitalWrite(tx_led,HIGH);
         while(digitalRead(dio0)==LOW) ;
-        digitalWrite(tx_led,LOW);
         radio.endRX(rx);
         if(rx.data[0]==0 && rx.data[1]==0xFF){//timeslot of a tx has just ended
           time_first_tx = micros() + (balloonID) * timepause + (balloonID -  1) * timestep;
@@ -117,10 +118,8 @@ struct TelemetryData {
         else while((micros() - time_first_tx ) % tx_interval > 10)  ;
         time_last_tx = micros();
         radio.beginTX(p);
-        digitalWrite(tx_led,HIGH);
         while(digitalRead(dio0)==LOW) ;//keep control for now
         radio.endTX();
-        digitalWrite(tx_led,LOW);
         EEPROM.write(PROMISCUOUS_EEPROM_ADDRESS,0);//disable promiscuous mode on next reboot
         
       }
@@ -136,9 +135,7 @@ struct TelemetryData {
         RFMLib::Packet rx;
         uint64_t beganSearch = millis();
         radio.beginRX();
-        digitalWrite(tx_led,HIGH);
         while(digitalRead(dio0)==LOW && millis() - beganSearch < 12*(tx_interval + timestep)) ;
-        digitalWrite(tx_led,LOW);
         boolean received_something = digitalRead(dio0);
         radio.endRX(rx);
         if(received_something && rx.data[0] < n_balloons-1 && rx.len == STANDARD_PKT_LEN){//timeslot of a tx has just ended
@@ -171,21 +168,23 @@ struct TelemetryData {
     p.data[6] = barometer.pressure;
     p.data[7] = barometer.temperature >> 8;
     p.data[8] = barometer.temperature;
-    uint32_t raw_pos = gps.location.rawLat().billionths();
+    uint32_t raw_pos = gps.location.rawLat().billionths;
     p.data[9] = raw_pos >> 24;
     p.data[10] = raw_pos >> 16;
     p.data[11] = raw_pos >> 8;
     p.data[12] = raw_pos;
-    uint32_t raw_pos = gps.location.rawLng().billionths();
+    raw_pos = gps.location.rawLng().billionths;
     p.data[13] = raw_pos >> 24;
     p.data[14] = raw_pos >> 16;
     p.data[15] = raw_pos >> 8;
     p.data[16] = raw_pos;
     p.data[17] = photodiode_event_count;
-    photodiode_level_sum /= photodiode_level_count;
-    p.data[18] =(byte)map(photodiode_level_sum,0,4294967295,0,255);
+    if(photodiode_event_count != 0) 
+      photodiode_level_sum /= photodiode_event_count;
+    p.data[18] =(byte)(photodiode_level_sum>>8);
+    Serial.println(analogRead(photodiode_pin)); 
     photodiode_level_sum = 0;
-    photodiode_event_peak = 0;
+    current_event_peak = 0;
     photodiode_event_lock = false;//cancel the current event if it's interrupted. It will be detected again, but the probability of this seems quite low given the event rate.
     photodiode_event_count = 0; 
     
@@ -198,7 +197,6 @@ struct TelemetryData {
     Serial.println(p.data[i],HEX);
     #endif
     time_last_tx = micros();
-    digitalWrite(tx_led,HIGH);
     radio.beginTX(p);
     
     attachInterrupt(dio0,RFM_TX_DONE,RISING);
@@ -213,9 +211,13 @@ TelemetryData teldata;
 volatile boolean shouldrec = false;
 volatile boolean shouldtx = false;
 void setup() {
-  Serial1.begin(9600);//gps serial
+  if(teldata.ublox_gps)
+    Serial3.begin(9600);
+  else
+    Serial3.begin(4800);
+    
   // put your setup code here, to run once:
-  pinMode(tx_led,OUTPUT);
+
   SPI.begin();
   Wire.begin();
   Serial.begin(115200);
@@ -231,9 +233,17 @@ void setup() {
   teldata.initialise();
   barometer.initialise();
 
-  if(teldata.ubloxGPS)
+  if(teldata.ublox_gps)
     setGPS_DynamicModel6();//put GPS into flight mode.
- 
+
+  //Calibrate photodiode average level
+  uint32_t adc_sum = 0;
+  for(int i = 0; i < 100000; i++) {
+  adc_sum += analogRead(photodiode_pin);
+  };
+  Serial.print("avg level = ");
+  Serial.println(adc_sum / 100000);
+  photodiode_threshold_level = (adc_sum / 100000) + photodiode_threshold_delta;
 }
  
   
@@ -251,19 +261,29 @@ void loop() {
     if(!photodiode_event_lock){
       photodiode_event_count +=1;
       photodiode_event_lock = true;
+      #if debug !=0
+      Serial.println("PD lock on");
+      #endif
     }
     if(photodiode_level > current_event_peak)
       current_event_peak = photodiode_level;
   }
   else if(photodiode_event_lock){
+    #if debug!=0
+    Serial.println("PD lock released");
+    #endif
     photodiode_event_lock = false;
     photodiode_level_sum += current_event_peak;
     current_event_peak = 0;
   }
   
   
-  while(Serial1.available())
-    gps.encode();
+  while(Serial3.available()){
+    byte x=Serial3.read();
+    Serial.write(x);
+    gps.encode(x);
+  }
+    
 
 }
 void rfm_end_tx(){
@@ -272,7 +292,7 @@ void rfm_end_tx(){
    #if debug_level != 0
    Serial.println("TX done.");
    #endif
-   digitalWrite(tx_led,LOW);
+
    shouldrec = false;
    
    
@@ -299,11 +319,11 @@ void setGPS_DynamicModel6()
  }
 }
 void sendUBX(uint8_t *MSG, uint8_t len) {
- Serial1.flush();
- Serial1.write(0xFF);
+ Serial3.flush();
+ Serial3.write(0xFF);
  delay(500);
  for(int i=0; i<len; i++) {
- Serial1.write(MSG[i]);
+ Serial3.write(MSG[i]);
  }
 }
 boolean getUBX_ACK(uint8_t *MSG) {
@@ -350,8 +370,8 @@ while (1) {
  }
  
 // Make sure data is available to read
- if (Serial1.available()) {
- b = Serial1.read();
+ if (Serial3.available()) {
+ b = Serial3.read();
  
 // Check that bytes arrive in sequence as per expected ACK packet
  if (b == ackPacket[ackByteID]) {
