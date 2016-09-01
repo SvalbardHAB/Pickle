@@ -21,7 +21,8 @@ struct TelemetryData {
   const uint64_t timestep = 805000;
   const uint64_t timepause =500000;//0.5s pause between slots
   const byte ID_EEPROM_ADDRESS = 0;
-  const byte PROM_EEPROM_ADDRESS = 1;
+  const byte PROMISCUOUS_EEPROM_ADDRESS = 1;
+  const byte STANDARD_PKT_LEN = 35;
   const int tx_interval = (n_balloons)*timepause + n_balloons*timestep;  
   boolean promisicuous = false;
   boolean promiscuous_enabled = true;
@@ -30,7 +31,7 @@ struct TelemetryData {
   }
   void initialise(){
     
-    if(!EEPROM.read(PROM_EEPROM_ADDRESS)) 
+    if(!EEPROM.read(PROMISCUOUS_EEPROM_ADDRESS)) 
       promiscuous_enabled = false;//disable promiscuous mode if needed
     #if debug_level != 0
     Serial.print("Promiscuous mode? ");
@@ -73,6 +74,8 @@ struct TelemetryData {
 //          txTime();
           break;
         }
+
+        
       }
       
     }
@@ -89,7 +92,7 @@ struct TelemetryData {
         RFMLib::Packet p;
         p.data[0] = 0;
         p.data[1] = 0xFF;
-        p.len = 35;
+        p.len = STANDARD_PKT_LEN;
         if(i==0) time_first_tx = micros();
         else while((micros() - time_first_tx ) % tx_interval > 10)  ;
         time_last_tx = micros();
@@ -98,7 +101,7 @@ struct TelemetryData {
         while(digitalRead(dio0)==LOW) ;//keep control for now
         radio.endTX();
         digitalWrite(tx_led,LOW);
-        
+        EEPROM.write(PROMISCUOUS_EEPROM_ADDRESS,0);//disable promiscuous mode on next reboot
         
       }
   }
@@ -118,7 +121,7 @@ struct TelemetryData {
         digitalWrite(tx_led,LOW);
         boolean received_something = digitalRead(dio0);
         radio.endRX(rx);
-        if(received_something){//timeslot of a tx has just ended
+        if(received_something && rx.data[0] < n_balloons-1 && rx.len == STANDARD_PKT_LEN){//timeslot of a tx has just ended
           #if debug_level != 0
           Serial.print("Received a sync packet from TX id: ");
           Serial.println(rx.data[0]);
@@ -127,8 +130,10 @@ struct TelemetryData {
           time_first_tx = micros() + (balloonID-rx.data[0]) * timepause + (balloonID-rx.data[0] -1) * timestep;
           
         }
+        else if(rx.data[0]==255 && rx.data[1] == 0x0 && rx.data[2] == 0xFF && rx.data[3] == 0 && rx.data[34]==0xFF && rx.len == STANDARD_PKT_LEN)//promiscuous mode reset
+          EEPROM.write(PROMISCUOUS_EEPROM_ADDRESS,255);
 
-        //drat. Out of range of others and no sync. GPS? Tomorrow...or rather today, perhaps.
+        //drat. Out of range of others and no sync. GPS? Tomorrow...or rather today, perhaps. EDIT: or maybe never.
     
     };
    void txTime(){
@@ -145,7 +150,7 @@ struct TelemetryData {
     p.data[5] = barometer.pressure;
     p.data[6] = barometer.temperature >> 8;
     p.data[7] = barometer.temperature;
-    p.len = 35;
+    p.len = STANDARD_PKT_LEN;
     #if debuglevel == 2
     Serial.print("Packet length: ")
     Serial.print(p.len);
@@ -188,7 +193,7 @@ void setup() {
   
 }
  
-  uint64_t timerlast = 0;
+  
 
 void loop() {
   // put your main code here, to run repeatedly:
@@ -206,13 +211,7 @@ if(((micros() - teldata.time_first_tx ) % teldata.tx_interval < 100) && micros()
 }
 void rfm_end_tx(){
   radio.endTX();
-  Serial.print("time");
-  long diff = (millis()-timerlast);
-  Serial.println(diff);
-  timerlast = millis();
-
-  Serial.print("txtime");
-  Serial.println((long)((micros()-teldata.time_last_tx)/1000));
+  
    #if debug_level != 0
    Serial.println("TX done.");
    #endif

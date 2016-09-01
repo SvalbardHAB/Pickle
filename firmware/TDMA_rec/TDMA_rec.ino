@@ -37,7 +37,7 @@ void loop(){
       Serial.print("Pressure: ");
       Serial.print(rx.data[2]<<24 | rx.data[3]<<16 | rx.data[4]<<8 | rx.data[5]);
       Serial.print("Pa    Temperature: ");
-      Serial.print((float)((rx.data[6]<<8 | rx.data[7]))/10);
+      Serial.print((float)((rx.data[6]<<8 | rx.data[7]))/100);
       Serial.println(" degC");
 
       
