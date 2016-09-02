@@ -22,7 +22,8 @@ void loop(){
   if(radio.rfm_done){
     RFMLib::Packet rx;
     radio.endRX(rx);
-    Serial.print(rx.crc);
+    Serial.print("#");
+    Serial.print(rx.crc );
     Serial.print(",");
     Serial.print(rx.rssi);
     Serial.print(",");
