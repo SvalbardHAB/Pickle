@@ -159,8 +159,8 @@ struct TelemetryData {
     #endif
     
     RFMLib::Packet p;
-    p.data[0] = balloonID;
-    p.data[1] = 0x0;
+    p.data[0] = balloonID//id
+    p.data[1] = 0x0 + (promiscuous_enabled)? 1 : 0 + (gps.isValid())?2 : 0 + (gps.satellites.value()>=3)? 4 : 0 + (gps.hdop().value <=200) ? 8 : 0  ;//status
     p.data[2] = 0;//battery status—to come
     p.data[3] = barometer.pressure >> 24;
     p.data[4] = barometer.pressure >> 16;
