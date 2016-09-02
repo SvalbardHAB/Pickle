@@ -166,27 +166,38 @@ struct TelemetryData {
     p.data[4] = barometer.pressure >> 16;
     p.data[5] = barometer.pressure >> 8;
     p.data[6] = barometer.pressure;
-    p.data[7] = barometer.temperature >> 8;
-    p.data[8] = barometer.temperature;
-    uint32_t raw_pos = gps.location.rawLat().billionths;
-    p.data[9] = raw_pos >> 24;
-    p.data[10] = raw_pos >> 16;
-    p.data[11] = raw_pos >> 8;
-    p.data[12] = raw_pos;
-    raw_pos = gps.location.rawLng().billionths;
-    p.data[13] = raw_pos >> 24;
-    p.data[14] = raw_pos >> 16;
-    p.data[15] = raw_pos >> 8;
-    p.data[16] = raw_pos;
-    p.data[17] = photodiode_event_count;
+    p.data[7] = (barometer.temperature/100) + 128;//temperature transmitted in excess-128 format. 
+    uint32_t raw_pos = (uint32_t)abs(gps.location.lat()*10000000);
+    p.data[8] = raw_pos >> 24;
+    p.data[9] = raw_pos >> 16;
+    p.data[10] = raw_pos >> 8;
+    p.data[11] = raw_pos;
+    raw_pos = (uint32_t)abs(gps.location.lng()*10000000);
+    p.data[12] = raw_pos >> 24;
+    p.data[13] = raw_pos >> 16;
+    p.data[14] = raw_pos >> 8;
+    p.data[15] = raw_pos;
+    p.data[16] = photodiode_event_count;
     if(photodiode_event_count != 0) 
       photodiode_level_sum /= photodiode_event_count;
-    p.data[18] =(byte)(photodiode_level_sum>>8);
+    p.data[17] =(byte)(photodiode_level_sum>>8);
+    #if debug!=0
+    Serial.print("Current photodiode reading: ");
     Serial.println(analogRead(photodiode_pin)); 
+    #endif
     photodiode_level_sum = 0;
     current_event_peak = 0;
     photodiode_event_lock = false;//cancel the current event if it's interrupted. It will be detected again, but the probability of this seems quite low given the event rate.
     photodiode_event_count = 0; 
+
+    //EFM stuff here (if fitted)
+
+    //cloud mean two byte (if fitted)
+    //cloud sd one byte (if fitted)
+
+    //rel hum one byte (if fitted)
+    //ext temp one byte (if fitted)
+
     
     p.len = STANDARD_PKT_LEN;
     #if debuglevel == 2
