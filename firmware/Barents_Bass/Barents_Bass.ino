@@ -129,13 +129,12 @@ struct TelemetryData {
     #if debug_level != 0
     Serial.println("Not being promiscuous—sync recovery mode");
     #endif
-    //begin by listening for 12 cycles (i.e. a minute)
-
+    //begin by listening for 24 cycles 
       
         RFMLib::Packet rx;
         uint64_t beganSearch = millis();
         radio.beginRX();
-        while(digitalRead(dio0)==LOW && millis() - beganSearch < 12*(tx_interval + timestep)) ;
+        while(digitalRead(dio0)==LOW && millis() - beganSearch < 24*(tx_interval + timestep)) ;
         boolean received_something = digitalRead(dio0);
         radio.endRX(rx);
         if(received_something && rx.data[0] < n_balloons-1 && rx.len == STANDARD_PKT_LEN){//timeslot of a tx has just ended
@@ -150,7 +149,28 @@ struct TelemetryData {
         else if(rx.data[0]==255 && rx.data[1] == 0x0 && rx.data[2] == 0xFF && rx.data[3] == 0 && rx.data[34]==0xFF && rx.len == STANDARD_PKT_LEN)//promiscuous mode reset
           EEPROM.write(PROMISCUOUS_EEPROM_ADDRESS,255);
 
-        //drat. Out of range of others and no sync. GPS? Tomorrow...or rather today, perhaps. EDIT: or maybe never.
+        //Backup plan is to change frequency and try again.
+        //first, reset the LoRa chip
+        digitalWrite(rfm_rst,LOW);
+        delayMicroseconds(100);
+        digitalWrite(rfm_rst,HIGH);
+        delayMicroseconds(5);
+        //now ready to reconfigure. and then transmit freely.
+        
+        byte my_config[6] = {0x44, 0x84, 0x88, 0xAC, 0xCD, 0x08};//NB todo—change this config.
+
+        switch(balloonID){
+          case 0:
+          break;
+          case 1:
+          break;
+          case 2:
+          break;
+        }
+        radio.configure(my_config);
+        time_first_tx = micros();
+        txTime();
+        
     
     };
    void txTime(){
