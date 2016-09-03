@@ -40,16 +40,16 @@ struct TelemetryData {
   const uint64_t timepause =500000;//0.5s pause between slots
   const byte ID_EEPROM_ADDRESS = 0;
   const byte PROMISCUOUS_EEPROM_ADDRESS = 1;
-  const byte STANDARD_PKT_LEN = 31;
+  const byte STANDARD_PKT_LEN = 25;
   const int tx_interval = (n_balloons)*timepause + n_balloons*timestep;  
   boolean promisicuous = false;
   boolean promiscuous_enabled = true;
   boolean ublox_gps = false;
   TelemetryData(){
     balloonID = EEPROM.read(ID_EEPROM_ADDRESS); 
-    
+    balloonID=0;//REMOVE BEFORE FLIGHT
     if(balloonID == 0 || balloonID==1)
-      ublox_gps = true;
+      ublox_gps = false;
   }
   void initialise(){
     
@@ -63,7 +63,7 @@ struct TelemetryData {
     Serial.println(tx_interval,DEC);
     #endif
     //FORCE PROMISCUITY ================= REMOVE BEFORE FLIGHT
-    //promiscuous_enabled = true;
+    promiscuous_enabled = true;
     if(promiscuous_enabled)
       initial_sync(); 
     else recovery_sync();
@@ -177,10 +177,11 @@ struct TelemetryData {
     #if debuglevel != 0
     Serial.println("txTime.");
     #endif
-    
+      
     RFMLib::Packet p;
-    p.data[0] = balloonID//id
-    p.data[1] = 0x0 + (promiscuous_enabled)? 1 : 0 + (gps.isValid())?2 : 0 + (gps.satellites.value()>=3)? 4 : 0 + (gps.hdop().value <=200) ? 8 : 0  ;//status
+    p.data[0] = balloonID;//id
+    p.data[1] = 0x0 + (promiscuous_enabled)? 1 : 0 + (true) ? 2 : 0 + (gps.satellites.value()>=3) ? 4 : 0 + 
+    (gps.hdop.value() <=200) ? 8 : 0  ;//status
     p.data[2] = 0;//battery status—to come
     p.data[3] = barometer.pressure >> 24;
     p.data[4] = barometer.pressure >> 16;
@@ -244,9 +245,15 @@ volatile boolean shouldtx = false;
 void setup() {
   if(teldata.ublox_gps)
     Serial3.begin(9600);
-  else
+  else {
+    pinMode(2, OUTPUT);
+    digitalWrite(2, LOW);
+    delay(100);
+    digitalWrite(2, HIGH);
+    delay(100);
+    digitalWrite(2, LOW);    
     Serial3.begin(4800);
-    
+  };
   // put your setup code here, to run once:
 
   SPI.begin();

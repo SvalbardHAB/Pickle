@@ -30,7 +30,7 @@ void loop(){
     Serial.print(rx.snr);
     Serial.print(",");
    for(byte i = 0;i<rx.len;i++){
-     Serial.print(rx.data[i]);
+     Serial.print((byte)rx.data[i], HEX);
      Serial.print(",");
    }
    Serial.println();
