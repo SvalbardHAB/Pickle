@@ -1,5 +1,5 @@
 #include <EEPROM.h>
-#define sn 0
+#define sn 1
 #define promiscuous 255
 void setup() {
   // put your setup code here, to run once:

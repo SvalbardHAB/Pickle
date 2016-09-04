@@ -39,7 +39,7 @@ struct TelemetryData {
   uint64_t time_first_tx = 0;
   uint64_t time_last_tx = 0;
    byte balloonID = 0;
-  const byte n_balloons = 3;
+  const byte n_balloons = 2;
   const uint64_t timestep = 1119000;
   const uint64_t timepause = 500000;//0.5s pause between slots
   const byte ID_EEPROM_ADDRESS = 0;
@@ -77,7 +77,7 @@ struct TelemetryData {
     #if debug_level != 0
     Serial.println("Being promiscuous.");
     #endif
-    if(balloonID!=2){//             ============= REMOVE BEFORE FLIGHT
+    if(balloonID!=0){
       #if debug_level != 0
       Serial.println("Not first. Awaiting sync.");
       #endif
