@@ -9,8 +9,9 @@ RFMLib radio =RFMLib(nss,dio0,255,rfm_rst);
 void setup(){
   SPI.begin();
   Serial.begin(115200);
-  byte my_config[6] = {0x44,0x84,0x88,0xAC,0xCD, 0x08};
+  byte my_config[6] = {0x44, 0x94, 0x88, 0xAC, 0xCD, 0x08};
   radio.configure(my_config);
+  radio.setFrequency(434650000);
 }
 
 void loop(){

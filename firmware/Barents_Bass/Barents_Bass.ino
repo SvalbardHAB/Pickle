@@ -1,3 +1,5 @@
+#include <HTU21D.h>
+
 /*
  * "Barents Bass"
  * Telemetry code for Svalbard HAB project. 
@@ -23,6 +25,7 @@
 RFMLib radio = RFMLib(nss, dio0, 255, rfm_rst);
 MS5637 barometer;
 TinyGPSPlus gps;
+HTU21D hygro;
 byte photodiode_event_count = 0;
 uint32_t photodiode_level_sum = 0;
 uint16_t photodiode_threshold_level = 0;
@@ -31,13 +34,14 @@ boolean photodiode_event_lock = false;
 uint16_t current_event_peak = 0;
 void RFM_TX_DONE();
 void TX_TIME();
+int16_t readCloudDetector();
 struct TelemetryData {
   uint64_t time_first_tx = 0;
   uint64_t time_last_tx = 0;
    byte balloonID = 0;
   const byte n_balloons = 3;
-  const uint64_t timestep = 805000;
-  const uint64_t timepause =500000;//0.5s pause between slots
+  const uint64_t timestep = 1119000;
+  const uint64_t timepause = 500000;//0.5s pause between slots
   const byte ID_EEPROM_ADDRESS = 0;
   const byte PROMISCUOUS_EEPROM_ADDRESS = 1;
   const byte STANDARD_PKT_LEN = 25;
@@ -47,9 +51,9 @@ struct TelemetryData {
   boolean ublox_gps = false;
   TelemetryData(){
     balloonID = EEPROM.read(ID_EEPROM_ADDRESS); 
-    balloonID=0;//REMOVE BEFORE FLIGHT
+    
     if(balloonID == 0 || balloonID==1)
-      ublox_gps = false;
+      ublox_gps = true;
   }
   void initialise(){
     
@@ -73,7 +77,7 @@ struct TelemetryData {
     #if debug_level != 0
     Serial.println("Being promiscuous.");
     #endif
-    if(balloonID!=0){
+    if(balloonID!=2){//             ============= REMOVE BEFORE FLIGHT
       #if debug_level != 0
       Serial.println("Not first. Awaiting sync.");
       #endif
@@ -157,17 +161,20 @@ struct TelemetryData {
         delayMicroseconds(5);
         //now ready to reconfigure. and then transmit freely.
         
-        byte my_config[6] = {0x44, 0x84, 0x88, 0xAC, 0xCD, 0x08};//NB todo—change this config.
-
+        byte my_config[6] = {0x44, 0x94, 0x88, 0xAC, 0xCD, 0x08};
+        radio.configure(my_config);
         switch(balloonID){
           case 0:
+          radio.setFrequency(434000000);
           break;
           case 1:
+          radio.setFrequency(434100000);
           break;
           case 2:
+          radio.setFrequency(434600000);
           break;
         }
-        radio.configure(my_config);
+        
         time_first_tx = micros();
         txTime();
         
@@ -211,14 +218,31 @@ struct TelemetryData {
     photodiode_event_lock = false;//cancel the current event if it's interrupted. It will be detected again, but the probability of this seems quite low given the event rate.
     photodiode_event_count = 0; 
 
-    //EFM stuff here (if fitted)
-
-    //cloud mean two byte (if fitted)
-    //cloud sd one byte (if fitted)
-
-    //rel hum one byte (if fitted)
-    //ext temp one byte (if fitted)
-
+    if(balloonID==2){
+      int16_t cloud_result = readCloudDetector()+512;
+      #if debug!=0
+      Serial.print("Clouds:");
+      Serial.println(cloud_result);
+      #endif
+      p.data[18] = cloud_result>>8;
+      p.data[19] = cloud_result;
+      p.data[20] = (byte)hygro.readHumidity();
+      p.data[21] = (byte)(hygro.readTemperature()+128);
+      #if debug!=0
+      Serial.print("hygro/temp ");
+      Serial.print(hygro.readHumidity());
+      Serial.print("/");
+      Serial.println(hygro.readTemperature());
+      #endif
+    }
+    else{
+      p.data[18] = 0;
+      p.data[19] = 0;
+      p.data[20] = 0;
+      p.data[21] = 0;
+    }
+    
+   
     
     p.len = STANDARD_PKT_LEN;
     #if debuglevel == 2
@@ -266,8 +290,9 @@ void setup() {
   Serial.println(teldata.balloonID);
   
   
-  byte my_config[6] = {0x44, 0x84, 0x88, 0xAC, 0xCD, 0x08};
+  byte my_config[6] = {0x44, 0x94, 0x88, 0xAC, 0xCD, 0x08};
   radio.configure(my_config);
+  radio.setFrequency(434650000);
   teldata.initialise();
   barometer.initialise();
 
@@ -282,6 +307,13 @@ void setup() {
   Serial.print("avg level = ");
   Serial.println(adc_sum / 100000);
   photodiode_threshold_level = (adc_sum / 100000) + photodiode_threshold_delta;
+
+  //set up light sensor
+  if(teldata.balloonID==2){
+    pinMode(16,OUTPUT);
+    pinMode(17,INPUT);
+    
+  }
 }
  
   
@@ -332,7 +364,7 @@ void rfm_end_tx(){
    #endif
 
    shouldrec = false;
-   
+   Serial.println((long)(micros()-teldata.time_last_tx));
    
 }
 void RFM_TX_DONE(){
@@ -420,6 +452,21 @@ while (1) {
  }
  }
  }
+}
+
+
+int16_t readCloudDetector(){
+  uint16_t avg_level = 0;
+  for(int i=0;i<500;i++)
+    avg_level+=analogRead(17);
+  avg_level /= 500;
+  digitalWrite(16,HIGH);
+  uint16_t new_level =0;
+  for(int i=0;i<500;i++)
+    new_level+=analogRead(17);
+  new_level/=500;
+  digitalWrite(16,LOW);
+  return (new_level -avg_level);
 }
 
  
